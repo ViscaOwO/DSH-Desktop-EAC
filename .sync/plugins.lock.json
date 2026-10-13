@@ -70,7 +70,7 @@
         "packageName": "dsh-eac-core-bridge",
         "packageVersion": "1.0.0",
         "path": "dsh-desktop/assets/plugins/dsh-eac-core-bridge",
-        "treeSha256": "e522d141e3c0bccd6bc871d4d8d93f1b917be26fb0a2caaa4622c1beaaeba362"
+        "treeSha256": "c49ddfa00e39c2ca82ba41a1af8e13f052ba4cd5fe0cbe4f0cbfc63a54af8390"
       },
       "manifestEntrySha256": "a452230bc4b70284d1a20cc9068c30ef7de2e73338e2eb36327d9fc3fd4e2ec0",
       "patchFiles": [],
@@ -80,7 +80,7 @@
       "runtimeUpdate": "disabled",
       "source": {
         "kind": "unknown",
-        "sha256": "e522d141e3c0bccd6bc871d4d8d93f1b917be26fb0a2caaa4622c1beaaeba362",
+        "sha256": "c49ddfa00e39c2ca82ba41a1af8e13f052ba4cd5fe0cbe4f0cbfc63a54af8390",
         "version": "1.0.0"
       },
       "sourceCommit": null
@@ -97,7 +97,7 @@
         "packageName": "dsh-eac-locale-compat",
         "packageVersion": "1.0.0",
         "path": "dsh-desktop/assets/plugins/dsh-eac-locale-compat",
-        "treeSha256": "c4e9e9816f0c9fb08ea70feed5441c646c86250191f4d0006ec91a22bd913e95"
+        "treeSha256": "516418ea8641abf697cbfaef249f1b5dd792b24a376def2a1339128d28e0213e"
       },
       "manifestEntrySha256": "fa77e5647c14df2d6739113c05cc0f74f0df223ebd6b0f1803a4e0a42677f600",
       "patchFiles": [],
@@ -107,7 +107,7 @@
       "runtimeUpdate": "disabled",
       "source": {
         "kind": "unknown",
-        "sha256": "c4e9e9816f0c9fb08ea70feed5441c646c86250191f4d0006ec91a22bd913e95",
+        "sha256": "516418ea8641abf697cbfaef249f1b5dd792b24a376def2a1339128d28e0213e",
         "version": "1.0.0"
       },
       "sourceCommit": null
@@ -124,7 +124,7 @@
         "packageName": "@deepseek-ai/dsh-easy-setup",
         "packageVersion": "0.1.0",
         "path": "dsh-desktop/assets/plugins/dsh-easy-setup",
-        "treeSha256": "73d5d2faf0b9f738c4cf35455e8e4d2e3f9beb8655ba469d49ad0eb5dda6008f"
+        "treeSha256": "8474eec1db5d50884090051cf1c6b72d53b6d41603b2b364e1aaec271a5ae4b9"
       },
       "manifestEntrySha256": "aef538c02636206d5325e02e48e0f1946aad38ac29a6246fea181a54a25a2614",
       "patchFiles": [],
@@ -135,7 +135,7 @@
       "source": {
         "kind": "internal",
         "name": "@deepseek-ai/dsh-easy-setup",
-        "sha256": "73d5d2faf0b9f738c4cf35455e8e4d2e3f9beb8655ba469d49ad0eb5dda6008f",
+        "sha256": "8474eec1db5d50884090051cf1c6b72d53b6d41603b2b364e1aaec271a5ae4b9",
         "version": "0.1.0"
       },
       "sourceCommit": null
@@ -180,7 +180,7 @@
         "packageName": "dsh-plugin-shield",
         "packageVersion": "0.1.0",
         "path": "dsh-desktop/assets/plugins/dsh-plugin-shield",
-        "treeSha256": "13350e65a59104170663e721542aa01521de5aaa339921e2caba64f5246becda"
+        "treeSha256": "d4a94f68586287e2710571ffdb41e30668bdf54d649bf2a81ee53d45c0c073de"
       },
       "manifestEntrySha256": "8392421dbfdf36b55f3dfcda336bb4e1cf77bff4afbc39941f7276712e5c5f49",
       "patchFiles": [],
@@ -190,7 +190,7 @@
       "runtimeUpdate": "disabled",
       "source": {
         "kind": "unknown",
-        "sha256": "13350e65a59104170663e721542aa01521de5aaa339921e2caba64f5246becda",
+        "sha256": "d4a94f68586287e2710571ffdb41e30668bdf54d649bf2a81ee53d45c0c073de",
         "version": "0.1.0"
       },
       "sourceCommit": null
@@ -207,7 +207,7 @@
         "packageName": "dsh-settings-scroll-fix",
         "packageVersion": "2.0.2",
         "path": "dsh-desktop/assets/plugins/dsh-settings-scroll-fix",
-        "treeSha256": "ddcd4fae89769829e568ceceb4a1bd37e1c0991417a1dddd2cb1960ec34cf6a1"
+        "treeSha256": "14226f49f616acf577ca10ae0f17f61f6178a203557c29a7ceb821de514114cb"
       },
       "manifestEntrySha256": "9c94c889b1dad6c6bbd91c0b85bd35dc45aa27cf83431672df1ef7c0fd733607",
       "patchFiles": [],
@@ -218,7 +218,7 @@
       "source": {
         "kind": "internal",
         "name": "dsh-settings-scroll-fix",
-        "sha256": "ddcd4fae89769829e568ceceb4a1bd37e1c0991417a1dddd2cb1960ec34cf6a1",
+        "sha256": "14226f49f616acf577ca10ae0f17f61f6178a203557c29a7ceb821de514114cb",
         "version": "2.0.2"
       },
       "sourceCommit": null
@@ -230,12 +230,12 @@
           "lib/host.js"
         ],
         "excludedPaths": [],
-        "fileCount": 16,
+        "fileCount": 17,
         "license": "MIT",
         "packageName": "dsh-unified-market",
         "packageVersion": "0.4.0",
         "path": "dsh-desktop/assets/plugins/dsh-unified-market",
-        "treeSha256": "73e6296e102b16e6391d7fbc9207d50cdde939749e8ca90b5a3d808e888c3e1f"
+        "treeSha256": "08b5e763ce90ba605567bf975b025d08856aa53a63c00ce47f16ab421a3797d4"
       },
       "manifestEntrySha256": "ae25457e39ddf76a4eb2c86feaaf021915433a007fa0ca034347d735f611c04d",
       "patchFiles": [],
@@ -247,7 +247,7 @@
         "kind": "npm",
         "name": "dsh-unified-market",
         "repository": "git+https://github.com/jing-hy/dsh-unified-market.git",
-        "sha256": "73e6296e102b16e6391d7fbc9207d50cdde939749e8ca90b5a3d808e888c3e1f",
+        "sha256": "08b5e763ce90ba605567bf975b025d08856aa53a63c00ce47f16ab421a3797d4",
         "version": "0.4.0"
       },
       "sourceCommit": null
@@ -264,7 +264,7 @@
         "packageName": "dsh-viewport-lock",
         "packageVersion": "1.0.1",
         "path": "dsh-desktop/assets/plugins/dsh-viewport-lock",
-        "treeSha256": "8a3941542aa9d4eb95a5c9630096289e80baa655b78d09902efb353eb4b5e703"
+        "treeSha256": "61811f5a6f6b828eff9fd5303d6bc8f4454650b25e31b90bee807dd47ebbb3f3"
       },
       "manifestEntrySha256": "e6e96d7072aceedcdaada60aa3a8fad6b33513f18bf36131e16956070e7ccb8b",
       "patchFiles": [],
@@ -275,7 +275,7 @@
       "source": {
         "kind": "internal",
         "name": "dsh-viewport-lock",
-        "sha256": "8a3941542aa9d4eb95a5c9630096289e80baa655b78d09902efb353eb4b5e703",
+        "sha256": "61811f5a6f6b828eff9fd5303d6bc8f4454650b25e31b90bee807dd47ebbb3f3",
         "version": "1.0.1"
       },
       "sourceCommit": null
