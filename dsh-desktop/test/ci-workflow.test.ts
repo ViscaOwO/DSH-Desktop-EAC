@@ -28,14 +28,18 @@ test('单元与构建 CI 在 PR 到 dev/main 及 push 到 dev/main 时触发', (
   assert.match(workflow, /^  staged-runtime:/m);
 });
 
-test('构建、Rust 与 staged runtime 在四个平台架构上运行并隔离产物', () => {
+// 平台策略：当前只跑 Windows x64 单平台（v6.0.0 release notes 明写 Linux 暂缓）。
+// 恢复多平台矩阵时必须同步本断言 —— 它是「矩阵到底跑哪几个平台」的唯一锁。
+test('构建、Rust 与 staged runtime 在 Windows x64 单平台上运行并隔离产物', () => {
   for (const jobName of ['source-and-unit', 'rust-shell', 'staged-runtime']) {
     const job = jobBlock(jobName);
     assert.match(job, /runs-on: \$\{\{ matrix\.runner \}\}/);
-    assert.match(job, /runner: ubuntu-22\.04\n\s+os: linux\n\s+arch: x64/);
-    assert.match(job, /runner: ubuntu-22\.04-arm\n\s+os: linux\n\s+arch: arm64/);
+    assert.equal(
+      (job.match(/^\s+- runner:/gm) ?? []).length,
+      1,
+      `${jobName} 当前只允许一个平台条目；恢复多平台时需同步本断言与 ci.yml`,
+    );
     assert.match(job, /runner: windows-latest\n\s+os: windows\n\s+arch: x64/);
-    assert.match(job, /runner: windows-11-arm\n\s+os: windows\n\s+arch: arm64/);
     assert.match(job, /process\.arch/);
     assert.match(job, /matrix\.arch/);
   }
