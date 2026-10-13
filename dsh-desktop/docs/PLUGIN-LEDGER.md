@@ -17,7 +17,7 @@
 ## 校验
 
 ```sh
-npm run ledger:check          # 本地 / CI
+node scripts/plugin-ledger.mjs            # 本地 / CI（CI 步骤名「Plugin source ledger」）
 node scripts/plugin-ledger.mjs --report   # 只看汇总，跳过版本比对
 ```
 

@@ -3,19 +3,32 @@ name: Minimal core CI
 on:
   # 触发策略：push 到 dev/main、PR 到 dev/main、手动 workflow_dispatch。
   # 平台策略：当前只跑 Windows x64 单平台（v6.0.0 release notes 明写 Linux 暂缓）。
-  # 恢复多平台矩阵或重新接线安装包打包（staged-runtime-artifact.yml）前，
-  # 必须同步 dsh-desktop/test/ci-workflow.test.ts 里的形状断言。
+  #
+  # 恢复多平台矩阵时必须同步的形状断言（它是「矩阵跑哪几个平台」的唯一锁）：
+  #   dsh-desktop/test/ci-workflow.test.ts —— assert.equal(..., 1) 只允许一个平台条目
+  #
+  # 安装包打包 workflow（staged-runtime-artifact.yml）当前是**孤儿**：它只有
+  # workflow_call 触发，本文件未提供 packages job 调用它；且它自身仍是 4 平台矩阵。
+  # 要接线需：新增 packages job（needs 三个 job + uses 它），并同步
+  #   dsh-desktop/test/rpm-packaging.test.ts（锁死其 Linux 条目）与
+  #   README.md / README.en.md / docs/README-MAINTENANCE.md 里的构建矩阵表述。
   push:
     branches:
       - dev
       - main
     paths:
+      # 每条都对应「改了就影响 CI 结果」的真实输入，勿凭直觉增删。
       - 'dsh-desktop/**'
       - 'tauri-shell/**'
-      - '.sync/**'
+      - '.sync/**'                    # 门禁 plugin-sync validate 的输入账本
+      - '.agents/skills/**'           # Skill 的 validate-skill.ps1 校验本处路径覆盖
+      - 'docs/**'                     # 门禁/测试直接读取：docs/schemas/**、
+                                      # docs/adr/0010-*.md、docs/archive/upgrade-test-441.js
       - '.github/workflows/ci.yml'
       - '.github/workflows/staged-runtime-artifact.yml'
-      - 'docs/adr/0006-minimal-core-scope.md'
+      - '.gitattributes'              # 决定 treeSha256 的换行归一化语义
+      - '.gitmodules'                 # submodule 定义
+      - 'third_party/dsh-dpx'         # submodule 指针变更（pin 门禁与隔离测试的输入）
   pull_request:
     branches:
       - dev
