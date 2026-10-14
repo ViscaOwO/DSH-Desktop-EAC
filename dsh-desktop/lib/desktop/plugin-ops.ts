@@ -315,7 +315,7 @@ export function imagePasteSave(dataUrl: string, name: string): { ok: boolean; er
   return { ok: true, path: file, size: buf.length };
 }
 
-// 拖入文件保存（dsh-file-drop-eac 插件）：任意文件（zip/二进制/超大文本等）的
+// 拖入文件保存（保留的插件 IPC 桩，暂无内建消费者）：任意文件（zip/二进制/超大文本等）的
 // data URL → 临时目录，返回真实磁盘路径供 agent 按路径读取（HTML5 拖拽在页面
 // 拿不到磁盘路径，由 sidecar 落盘后回传）。上限 FILE_DROP_MAX_BYTES。
 export const FILE_DROP_MAX_BYTES = 64 * 1024 * 1024;

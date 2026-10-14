@@ -387,6 +387,15 @@ mod shell_tests {
     }
 
     #[test]
+    fn ui_text_direction_matches_detected_language() {
+        // 自指盲区补丁：上一条断言用 ui_text 取期望值，若 ui_text 的两个分支被写反
+        // （或 use_chinese_ui 的语义被改坏），页面与期望会一起翻转、中英机器都会绿。
+        // 这里用 use_chinese_ui() 做方向对照，单独把「分支方向」钉住。
+        let expected = if super::use_chinese_ui() { "zh" } else { "en" };
+        assert_eq!(super::ui_text("zh", "en"), expected);
+    }
+
+    #[test]
     fn shell_pages_do_not_leak_line_continuation_backslashes() {
         // 回归（2026-09-29 实测「一坨黑」）：页面模板每行结尾必须用**单**反斜杠
         // 做 Rust 续行。写成双反斜杠 `\\` 时，Rust 把它当「字面反斜杠」，

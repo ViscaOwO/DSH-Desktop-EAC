@@ -958,7 +958,8 @@ const methods: Record<string, (p: RpcParams) => unknown> = {
   // 注：shell.open-external 与 files.open 属 L1 域，由 Rust handle_shell_method
   // 直接拦截（ShellExecuteW），不经 sidecar。sidecar 只在内部需要打开外链时
   // 用 notify('shell.open-external') 通知壳层执行（见 clientUpdateMod.init）。
-  // 拖入文件落盘（dsh-file-drop-eac 消费；上限与 data URL 校验在 plugin-ops）。
+  // 拖入文件落盘（保留方法面／插件 IPC 桩：原 dsh-file-drop-eac 消费方已退役，
+  // 随包内零调用；拖放 → @path 由官方桌面端内置。上限与 data URL 校验在 plugin-ops）。
   'file-drop.save': (p): RpcResult => {
     try {
       return (pluginOpsMod.fileDropSave as (d: string, n: string) => Record<string, unknown>)(

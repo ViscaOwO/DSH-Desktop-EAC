@@ -28,7 +28,7 @@
  *      第二份 padding，避免底部双倍空白。
  *
  * 契约：client bundle 的 factory 返回 { inject, apply }，浏览器端 cordis
- * runner 会调用 apply(ctx)（同 dsh-file-drop-eac 的最小形状）。
+ * runner 会调用 apply(ctx)（同 dsh-settings-scroll-fix 客户端半的最小形状）。
  */
 window.__ModuleLoader__.load({
   id: 'dsh-viewport-lock',

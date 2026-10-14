@@ -264,7 +264,7 @@
         "packageName": "dsh-viewport-lock",
         "packageVersion": "1.0.1",
         "path": "dsh-desktop/assets/plugins/dsh-viewport-lock",
-        "treeSha256": "61811f5a6f6b828eff9fd5303d6bc8f4454650b25e31b90bee807dd47ebbb3f3"
+        "treeSha256": "7d1f2f722814f0e46d5852e8e2ce579cff5937eba9763742e2c8849e3a7ea9f8"
       },
       "manifestEntrySha256": "e6e96d7072aceedcdaada60aa3a8fad6b33513f18bf36131e16956070e7ccb8b",
       "patchFiles": [],
@@ -275,7 +275,7 @@
       "source": {
         "kind": "internal",
         "name": "dsh-viewport-lock",
-        "sha256": "61811f5a6f6b828eff9fd5303d6bc8f4454650b25e31b90bee807dd47ebbb3f3",
+        "sha256": "7d1f2f722814f0e46d5852e8e2ce579cff5937eba9763742e2c8849e3a7ea9f8",
         "version": "1.0.1"
       },
       "sourceCommit": null
