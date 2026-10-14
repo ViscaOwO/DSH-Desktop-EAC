@@ -380,10 +380,10 @@ mod shell_tests {
         assert!(page.contains("onclick=\"purgeEnvironment()\""));
         // 无法自动清理时必须给出人工出路（注册表损坏场景实测会卡住）。
         assert!(page.contains("data-control-name=\"system.default.environment-hint\""));
-        assert!(
-            page.contains("环境无法自动清理"),
-            "必须给出可执行的人工恢复提示"
-        );
+        // 提示文案由 ui_text 按系统语言选择，断言必须走同一事实源：
+        // 写死中文会在英文 locale 的机器与 CI 上必红（2026-10-14 windows/x64 实测）。
+        let hint = super::ui_text("环境无法自动清理", "cannot be cleaned automatically");
+        assert!(page.contains(hint), "必须给出可执行的人工恢复提示");
     }
 
     #[test]
