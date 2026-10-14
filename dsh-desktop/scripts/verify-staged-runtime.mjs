@@ -105,6 +105,17 @@ export function verifyStagedRuntime(stageRoot) {
   if (manifest?.version !== 1 || !manifest.packages || typeof manifest.packages !== 'object') {
     throw new Error('bundle-manifest.json has an invalid schema');
   }
+  // 非空性（堵自洽式空转）：manifest 为空时 verifyBundle 会逐条遍历 0 次、恒返回
+  // ok —— 而 buildBundleManifest 在 node_modules 读不到时会早退成 { packages: {} }。
+  // 那样"闭包校验"就变成了空转：staged 里一个生产包都没有也会 PASS。
+  // 这里把「manifest 真的记了包」与「staged node_modules 真的在」变成硬条件。
+  const packageNames = Object.keys(manifest.packages);
+  if (packageNames.length === 0) {
+    throw new Error('bundle-manifest.json lists no packages (staged node_modules is missing or empty)');
+  }
+  if (!existsSync(path.join(desktop, 'node_modules'))) {
+    throw new Error('staged node_modules is missing: dsh-desktop/node_modules');
+  }
 
   const require = createRequire(import.meta.url);
   const { verifyBundle } = require(path.join(desktop, 'bundle-integrity.js'));
@@ -117,7 +128,7 @@ export function verifyStagedRuntime(stageRoot) {
     requiredFiles: REQUIRED_FILES.length,
     retiredPaths: RETIRED_PATHS.length,
     bundle,
-    manifestPackages: Object.keys(manifest.packages).length,
+    manifestPackages: packageNames.length,
   };
 }
 

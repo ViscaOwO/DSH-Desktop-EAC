@@ -93,6 +93,32 @@ test('staged runtime verifier rejects retired logger artifact', () => {
   }
 });
 
+test('staged runtime verifier rejects a vacuous bundle manifest', () => {
+  // 回归（2026-10-14 自检 F4）：manifest 的 packages 为空时 verifyBundle 会逐条
+  // 遍历 0 次、恒返回 ok —— 于是"闭包校验"变成空转：staged 里一个生产包都没有
+  // 也会 PASS。这条锁住「manifest 必须真的记了包」。
+  const root = createStageFixture();
+  try {
+    writeFileSync(
+      join(root, 'dsh-desktop', 'bundle-manifest.json'),
+      JSON.stringify({ version: 1, packages: {} }),
+    );
+    assert.throws(() => verifyStagedRuntime(root), /lists no packages/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('staged runtime verifier rejects a missing node_modules tree', () => {
+  const root = createStageFixture();
+  try {
+    rmSync(join(root, 'dsh-desktop', 'node_modules'), { recursive: true, force: true });
+    assert.throws(() => verifyStagedRuntime(root), /staged node_modules is missing/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('token redirect helper requires 303 then authenticated 200', async () => {
   const seen: Array<{ url: string; cookie: string }> = [];
   const result = await followTokenRedirect('http://127.0.0.1:1234/?token=secret', async (url, init) => {

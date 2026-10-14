@@ -66,3 +66,43 @@ test('CI 显式限制 GITHUB_TOKEN 权限（CodeQL actions/missing-workflow-perm
   // jobHasPermissions 接受 job 级或所属 workflow 级，二者有其一即不告警）。
   assert.match(perms[1], /^ {2}contents: read$/m, 'permissions 必须至少含 contents: read');
 });
+
+// 形状锁补强：上面的断言只校验「整个文件里存在某串」—— 把步骤删掉、只把字符串
+// 留在注释里照样能过；job 白名单与 needs 依赖图则完全没人锁。
+// 这里把三件事补上，且全部作用在 **job 块内部**。
+test('CI 的 job 白名单、needs 依赖图与关键步骤归属都被锁住', () => {
+  const jobsSection = workflow.split(/^jobs:$/m)[1] ?? '';
+  const declared = [...jobsSection.matchAll(/^  ([a-z][\w-]*):$/gm)].map((m) => m[1]);
+  assert.deepEqual(
+    declared.sort(),
+    ['rust-shell', 'source-and-unit', 'staged-runtime'],
+    'job 白名单不允许静默增删；确需变更时同步本断言与 ci.yml 顶部注释',
+  );
+
+  assert.match(jobBlock('rust-shell'), /^\s+needs: source-and-unit$/m);
+  assert.match(jobBlock('staged-runtime'), /^\s+needs: source-and-unit$/m);
+
+  const required: Array<[string, string[]]> = [
+    ['source-and-unit', [
+      'npm run typecheck',
+      'npm run build',
+      'scripts/plugin-ledger.mjs',
+      'scripts/plugin-sync.mjs validate',
+      'npm test',
+      'check-manifest-drift.mjs',
+    ]],
+    ['rust-shell', ['cargo fmt -- --check', 'cargo test --locked', 'cargo check --locked']],
+    ['staged-runtime', [
+      'npm run fetch-runtime',
+      'stage-resources.mjs',
+      'verify-staged-runtime.mjs',
+      'minimal-boot-smoke.mjs',
+    ]],
+  ];
+  for (const [job, needles] of required) {
+    const block = jobBlock(job);
+    for (const needle of needles) {
+      assert.ok(block.includes(needle), `${job} 必须包含步骤/命令：${needle}`);
+    }
+  }
+});

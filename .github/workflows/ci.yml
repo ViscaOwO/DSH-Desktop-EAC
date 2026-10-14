@@ -40,7 +40,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # 带上 event_name：否则手动 workflow_dispatch 与 push 会共用同一个 group
+  # （都退化成 github.ref），cancel-in-progress 会让手动重跑取消掉 push 的运行。
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 env:
@@ -52,7 +54,10 @@ jobs:
   source-and-unit:
     name: Node source and unit tests (${{ matrix.os }}/${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 120
+    # 实测冷缓存整条 workflow 墙钟 15m03s、热缓存 8m03s（本 job 最多占墙钟一半，
+    # 因为两个下游 job 与它串行、彼此并行）。30 分钟对已观测的最坏冷缓存仍有 2× 余量；
+    # 原来的 120 只会让卡死时白占 Windows runner 两小时。
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -134,7 +139,8 @@ jobs:
     name: Rust shell (${{ matrix.os }}/${{ matrix.arch }})
     needs: source-and-unit
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 90
+    # 冷缓存要下全量 crates + 编译 Tauri，是本 workflow 最慢的一项，单独留 45。
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -208,7 +214,7 @@ jobs:
     name: Staged runtime and isolated boot smoke (${{ matrix.os }}/${{ matrix.arch }})
     needs: source-and-unit
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 120
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
