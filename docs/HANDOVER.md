@@ -17,7 +17,8 @@ DeepSeek Harness EAC 桌面版：Tauri（Rust）壳 + Node sidecar + 零改动�
 ## 关键事实（接手者必读）
 
 1. **壳必须是 Tauri**：Electron 壳已于 5.1.2 后整体退场（commit 8fd36b90），
-   发布只走 release-tauri.yml；再出现 Electron 链是回归。
+   发布只走 Tauri 链（`release-tauri.yml`，现位于 `.deprecated/workflows/`、未启用；
+   重新启用前先读其自述「尚未在线上实跑过」）；再出现 Electron 链是回归。
 2. **版本号必须变号**：profile 同步白名单按版本号判定，bump 缺失=升级用户
    拿不到配套插件同步。
 3. **内核不可碰**：`vendor/kernel/`、`node_modules/@deepseek-ai/*` 只能经

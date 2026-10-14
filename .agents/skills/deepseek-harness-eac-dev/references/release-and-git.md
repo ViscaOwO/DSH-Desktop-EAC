@@ -41,9 +41,22 @@
 
 ## 当前工作流
 
-- `.github/workflows/ci.yml`
-- `.github/workflows/release.yml`：已禁用的 Electron 历史工作流，不得重新启用或用于发布。
-- `.github/workflows/release-tauri.yml`：唯一允许发布当前桌面产品的工作流。
-- `.github/workflows/clear-cache.yml`
+`.github/workflows/` 下**只有两个**（2026-10-14 实测）：
 
-项目内置 `dsh-desktop/assets/skills/` 的修改应通过 CI paths 进入构建。开发者 Skill 部署到 `.agents/skills/deepseek-harness-eac-dev/` 后由 `.github/workflows/ci.yml` 的 paths 和双 PowerShell 校验保护；位于仓库外的维护源仍不受仓库 CI 保护，必须通过副本 SHA-256 比较确认同步。
+- `.github/workflows/ci.yml`：现行 CI，Windows x64 单平台，三个 job
+  （`source-and-unit` / `rust-shell` / `staged-runtime`）。
+- `.github/workflows/staged-runtime-artifact.yml`：安装包打包工作流，`workflow_call` 型；
+  **当前无调用者（孤儿）**，且它自身仍是 4 平台矩阵。接线方式与须同步的文件见 `ci.yml` 顶部注释。
+
+`.deprecated/workflows/` 下是 4 个已退役的历史工作流：`ci.yml`、`clear-cache.yml`、
+`release-macos.yml`、`release-tauri.yml`（后两者是 Tauri 时代的发布/验证管线）。
+该目录不参与运行（旧 `ci.yml` 自述「GitHub Actions 只读取 `.github/workflows/`」）；
+重新启用其中任何一个前必须先审查：`release-tauri.yml` 自述「尚未在线上实跑过」，
+`release-macos.yml` 自身没有退役注记。更早的 `release.yml` 已被移除，不在本目录。
+
+项目内置 `dsh-desktop/assets/skills/` 的修改应通过 CI paths 进入构建。开发者 Skill 部署到
+`.agents/skills/deepseek-harness-eac-dev/` 后由 `.github/workflows/ci.yml` 的 paths
+（现含 `.agents/skills/**`）覆盖；但**当前 CI 并不执行 Skill 自带的 PowerShell 校验脚本**，
+改动 Skill 后需本地跑
+`.agents/skills/deepseek-harness-eac-dev/scripts/validate-skill.ps1 -RepoPath .`。
+位于仓库外的维护源仍不受仓库 CI 保护，必须通过副本 SHA-256 比较确认同步。

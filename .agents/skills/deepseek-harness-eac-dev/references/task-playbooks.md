@@ -83,7 +83,7 @@
 3. 同步检查 `tauri-shell/scripts/stage-resources.mjs` 是否在干净依赖安装后重放补丁。
 4. 修改受控 vendored 文件时核对来源版本、项目差异、许可证和 staging 回填逻辑。
 5. 验证补丁可重复执行、目标标记存在、staging 内容正确，并运行 V2；影响安装树和发布资产时提升到 V5。
-6. 发布链只使用 `release-tauri.yml`，不得启用历史 `release.yml`。
+6. 发布链只使用 Tauri 发布工作流（`release-tauri.yml`，现位于 `.deprecated/workflows/`、未启用），不得启用历史 Electron 链。
 
 ## 修改救援与自动修复
 

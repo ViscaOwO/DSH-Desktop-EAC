@@ -7,6 +7,14 @@
 **版本基线**：6.0.0（`dsh-desktop/package.json`、`tauri-shell/Cargo.toml`、
 `tauri-shell/tauri.conf.json` 三处一致）
 
+> ⚠️ **状态注记（2026-10-14）**：本文描述的是 PR #406 分支上的**四平台**安装包矩阵，
+> 该 PR **未合并进 `main`**。当前 `main` 的 `.github/workflows/ci.yml` 是
+> **Windows x64 单平台**，**没有 `packages` job**；`staged-runtime-artifact.yml`
+> 因此**无任何调用者（孤儿）**，且它自身仍是 4 平台矩阵。
+> 按本文接线前，先读 `ci.yml` 顶部注释里列出的同步清单
+> （`rpm-packaging.test.ts`、`README.md` / `README.en.md` / `docs/README-MAINTENANCE.md`
+> 的构建矩阵表述）。
+
 ---
 
 ## 0. 一页速览（接手者先读这里）

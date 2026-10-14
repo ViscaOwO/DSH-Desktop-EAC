@@ -33,4 +33,4 @@
 - 重复执行补丁，确认第二次不产生额外变化。
 - 比较 staging 中目标文件包含补丁标记且与预期 vendored 覆盖一致。
 
-发布链只使用 `.github/workflows/release-tauri.yml`。`.github/workflows/release.yml` 是禁用的 Electron 历史记录，不得重新启用。
+发布链只使用 Tauri 发布工作流 `.deprecated/workflows/release-tauri.yml`（已移出运行目录、未启用）。更早的 `release.yml` 已被移除，不得恢复或重新启用。

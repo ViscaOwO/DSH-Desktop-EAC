@@ -76,4 +76,4 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass `
 - 受控 vendored 文件
 - `tauri-shell/stage-resources.mjs` 的 staging 重放或覆盖逻辑
 
-发布只使用 `.github/workflows/release-tauri.yml`。`.github/workflows/release.yml` 保留为禁用的 Electron 历史记录。
+发布只使用 Tauri 发布工作流（`.deprecated/workflows/release-tauri.yml`，已移出运行目录、未启用）。更早的 `release.yml` 已被移除。当前 `.github/workflows/` 只有 `ci.yml` 与 `staged-runtime-artifact.yml`。

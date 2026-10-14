@@ -62,7 +62,7 @@
 - 便携包：`tauri-shell/make-portable.mjs`
 - NSIS 钩子：`tauri-shell/installer-hooks.nsh`
 - Tauri 配置：`tauri-shell/tauri.conf.json`
-- 发布工作流：`.github/workflows/release-tauri.yml`
+- 发布工作流：`.deprecated/workflows/release-tauri.yml`（已移出运行目录，未启用）
 
 ## 测试组
 

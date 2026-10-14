@@ -53,6 +53,22 @@
 - `cargo check --locked --offline`：通过。
 - `cargo build --locked --offline`：通过；将生成的原生 EXE 放入 staged 目录，在隔离数据目录执行 `--bridge-test`，3/3 通过。
 - `cargo test --locked --offline`：21 通过、1 失败。未改动的 `died_page_exposes_environment_diagnosis_and_guarded_purge` 固定断言中文文案，但页面按本机系统语言输出英文；保留测试并明确记录。
+
+> **2026-10-14 更正（CI 重建后）** —— 本节以上条目是当时的记录，以下三项状态已变：
+>
+> - **第 50 行**「没有恢复已删除工作流」已不成立：CI 已重建为 Windows x64 单平台
+>   （`b921fe3`），三个引用 `ci.yml` 的测试全部转绿；GitHub 首次实测
+>   `source-and-unit` 全部步骤通过、`staged-runtime` 全部步骤通过
+>   （`rust-shell` 当时只挂在下面第 55 行那条 locale 断言上）。
+> - **第 55 行**的 locale 红灯已修（`299d1cc`）：断言改走同一事实源
+>   `super::ui_text(zh, en)`，中英 locale 均不再红。
+> - **第 49 行**括注的「当前 workflow 没有覆盖 Skill 的 paths 过滤」已修
+>   （`ea16d48`）：`ci.yml` 的 `push.paths` 现含 `.agents/skills/**`，
+>   `validate-skill.ps1 -RepoPath .` 报 `ciPathCoverage: covered`。
+> - 另：随包插件 `dsh-file-drop-eac` 的**孤儿目录**已删除、`.sync/plugins.lock.json`
+>   已按当前插件树重生成（`47c8614`）；两条台账门禁复验 `exit 0`。
+>   注意 `.sync/plugin-inventory-history.json` 里它的 `state:"retired"` 历史行
+>   **必须保留**（ADR 0008 §5），那条指向已删路径是设计内行为。
 - 资源装配与 `verify-staged-runtime.mjs`：通过，41 个必需文件、9 类退役路径检查、646 个生产包；包含 launcher、pnpm 的 JS 入口及实现文件、共用身份解析。
 - 真实随包 Node 24.19.0 + pnpm 11.7.0：只有 Windows System32 在测试 PATH；本地 tarball 安装/卸载、内核包信息查询（本地测试 registry）、lockfile 创建均通过，profile 路径含空格和中文。overlay launcher 与市场重新调用另有回归测试。
 - 隔离 staged boot：首次 60 秒超时；补全工作树的内核缓存后再次执行通过，鉴权 303→200、退出后 HTTP 服务消失。停止时记录等待进程退出超时后强制回收；不宣称优雅退出已验证。
